@@ -1,0 +1,149 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "GitHub Repository API",
+        "description": "API documentation for GitHub Repository API",
+        "contact": {
+            "email": "miaad.ebrahimi@gmail.com"
+        },
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "http://localhost:8000",
+            "description": "Development Server"
+        }
+    ],
+    "paths": {
+        "/api/repos": {
+            "get": {
+                "tags": [
+                    "Repositories"
+                ],
+                "summary": "List GitHub repositories",
+                "operationId": "7f943073616b1e792ebf4ac789394948",
+                "parameters": [
+                    {
+                        "name": "search",
+                        "in": "query",
+                        "description": "Search term",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "sort",
+                        "in": "query",
+                        "description": "Sort field",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "order",
+                        "in": "query",
+                        "description": "Sort order",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "enum": [
+                                "asc",
+                                "desc"
+                            ]
+                        }
+                    },
+                    {
+                        "name": "per_page",
+                        "in": "query",
+                        "description": "Items per page",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "Page number",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/Repository"
+                                            }
+                                        },
+                                        "total": {
+                                            "type": "integer"
+                                        },
+                                        "per_page": {
+                                            "type": "integer"
+                                        },
+                                        "current_page": {
+                                            "type": "integer"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "Repository": {
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "example": 123
+                    },
+                    "name": {
+                        "type": "string",
+                        "example": "Sample Repo"
+                    },
+                    "full_name": {
+                        "type": "string",
+                        "example": "user/Sample-Repo"
+                    },
+                    "html_url": {
+                        "type": "string",
+                        "example": "https://github.com/user/Sample-Repo"
+                    },
+                    "language": {
+                        "type": "string",
+                        "example": "PHP"
+                    },
+                    "updated_at": {
+                        "type": "string",
+                        "example": "2024-03-14T08:48:37Z"
+                    },
+                    "pushed_at": {
+                        "type": "string",
+                        "example": "2024-03-13T16:22:57Z"
+                    },
+                    "stargazers_count": {
+                        "type": "integer",
+                        "example": 100
+                    }
+                },
+                "type": "object"
+            }
+        }
+    }
+}
