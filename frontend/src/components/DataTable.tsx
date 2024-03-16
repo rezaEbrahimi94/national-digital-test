@@ -1,19 +1,22 @@
+// Directive for Next.js to load this component on the client side.
 'use client';
 
 import React from 'react';
 import ReactPaginate from 'react-paginate';
 
+// Define the data structure for a single repository.
 interface Repository {
   id: number;
   name: string;
   full_name: string;
   html_url: string;
   language: string;
-  updated_at: string; // Activity
+  updated_at: string; // Represents the last update time, used for 'activity' sorting.
   pushed_at: string;
-  stargazers_count: number; // Popularity
+  stargazers_count: number; // Represents the number of stars, used for 'popularity' sorting.
 }
 
+// Define the props structure for the DataTable component.
 interface DataTableProps {
   data: Repository[];
   total: number;
@@ -25,6 +28,7 @@ interface DataTableProps {
   onPageChange: (selectedItem: { selected: number }) => void;
 }
 
+// DataTable component displays the repositories in a sortable and paginated table.
 const DataTable: React.FC<DataTableProps> = ({
   data,
   total,
@@ -35,6 +39,7 @@ const DataTable: React.FC<DataTableProps> = ({
   onSort,
   onPageChange,
 }) => {
+  // Function to render sort icons next to sortable column headers.
   const sortIcon = (column: string) => {
     return column === sort ? (order === 'asc' ? '↑' : '↓') : '';
   };
@@ -103,7 +108,7 @@ const DataTable: React.FC<DataTableProps> = ({
       <ReactPaginate
         previousLabel={'Previous'}
         nextLabel={'Next'}
-        pageCount={total / perPage}
+        pageCount={Math.ceil(total / perPage)}
         onPageChange={onPageChange}
         containerClassName={'pagination'}
         previousLinkClassName={'pagination__link'}
